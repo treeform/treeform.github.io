@@ -1256,7 +1256,7 @@ function main() {
       <li><a class="reference" href="#timeZones"
     title="timeZones = newSeq(chckRange(14416 div sizeof(TimeZone), 0, 9223372036854775807))"><wbr />time<wbr />Zones<span class="attachedType" style="visibility:hidden"></span></a></li>
   <li><a class="reference" href="#dstChanges"
-    title="dstChanges = newSeq(chckRange(6694880 div sizeof(DstChange), 0, 9223372036854775807))"><wbr />dst<wbr />Changes<span class="attachedType" style="visibility:hidden"></span></a></li>
+    title="dstChanges = newSeq(chckRange(3347440 div sizeof(DstChange), 0, 9223372036854775807))"><wbr />dst<wbr />Changes<span class="attachedType" style="visibility:hidden"></span></a></li>
 
   </ul>
 </li>
@@ -1335,12 +1335,18 @@ function main() {
     title="parseTs(fmt: string; value: string): Timestamp"><wbr />parse<wbr />Ts<span class="attachedType" style="visibility:hidden">Timestamp</span></a></li>
   <li><a class="reference" href="#formatTs,Timestamp,string"
     title="formatTs(ts: Timestamp; fmt: string): string"><wbr />format<wbr />Ts<span class="attachedType" style="visibility:hidden">Timestamp</span></a></li>
+  <li><a class="reference" href="#toString,A"
+    title="toString[A](arr: A): string"><wbr />to<wbr />String<span class="attachedType" style="visibility:hidden"></span></a></li>
   <li><a class="reference" href="#findTimeZone,string"
     title="findTimeZone(tzName: string): TimeZone"><wbr />find<wbr />Time<wbr />Zone<span class="attachedType" style="visibility:hidden">TimeZone</span></a></li>
+  <li><a class="reference" href="#findTimeZone,int"
+    title="findTimeZone(tzId: int): TimeZone"><wbr />find<wbr />Time<wbr />Zone<span class="attachedType" style="visibility:hidden">TimeZone</span></a></li>
   <li><a class="reference" href="#valid,TimeZone"
     title="valid(tz: TimeZone): bool"><wbr />valid<span class="attachedType" style="visibility:hidden">TimeZone</span></a></li>
   <li><a class="reference" href="#applyTimezone,Calendar,string"
     title="applyTimezone(cal: var Calendar; tzName: string)"><wbr />apply<wbr />Timezone<span class="attachedType" style="visibility:hidden">Calendar</span></a></li>
+  <li><a class="reference" href="#clearTimezone,Calendar"
+    title="clearTimezone(cal: var Calendar)"><wbr />clear<wbr />Timezone<span class="attachedType" style="visibility:hidden">Calendar</span></a></li>
   <li><a class="reference" href="#tsToCalendar,Timestamp,string"
     title="tsToCalendar(ts: Timestamp; tzName: string): Calendar"><wbr />ts<wbr />To<wbr />Calendar<span class="attachedType" style="visibility:hidden">Timestamp</span></a></li>
   <li><a class="reference" href="#tsToIso,Timestamp,string"
@@ -1357,6 +1363,8 @@ function main() {
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#findDstChanges.i,TimeZone"
     title="findDstChanges(tz: TimeZone): DstChange"><wbr />find<wbr />Dst<wbr />Changes<span class="attachedType" style="visibility:hidden">TimeZone</span></a></li>
+  <li><a class="reference" href="#findTimeZoneFromDstName.i,string"
+    title="findTimeZoneFromDstName(dstName: string): TimeZone"><wbr />find<wbr />Time<wbr />Zone<wbr />From<wbr />Dst<wbr />Name<span class="attachedType" style="visibility:hidden">TimeZone</span></a></li>
 
   </ul>
 </li>
@@ -1515,7 +1523,7 @@ Time Zone information
 List of all timezones
 
 </dd>
-<dt id="dstChanges"><a name="dstChanges"></a><pre><span class="Identifier">dstChanges</span> <span class="Other">=</span> <span class="Identifier">newSeq</span><span class="Other">(</span><span class="Identifier">chckRange</span><span class="Other">(</span><span class="DecNumber">6694880</span> <span class="Identifier">div</span> <span class="Identifier">sizeof</span><span class="Other">(</span><span class="Identifier">DstChange</span><span class="Other">)</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">9223372036854775807</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
+<dt id="dstChanges"><a name="dstChanges"></a><pre><span class="Identifier">dstChanges</span> <span class="Other">=</span> <span class="Identifier">newSeq</span><span class="Other">(</span><span class="Identifier">chckRange</span><span class="Other">(</span><span class="DecNumber">3347440</span> <span class="Identifier">div</span> <span class="Identifier">sizeof</span><span class="Other">(</span><span class="Identifier">DstChange</span><span class="Other">)</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">9223372036854775807</span><span class="Other">)</span><span class="Other">)</span></pre></dt>
 <dd>
 List of all DST changes
 
@@ -1708,9 +1716,19 @@ Parse time using the Chrono format string into a Timestamp.
 Format a Timestamp using the format string.
 
 </dd>
+<dt id="toString"><a name="toString,A"></a><pre><span class="Keyword">proc</span> <span class="Identifier">toString</span><span class="Other">[</span><span class="Identifier">A</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Identifier">A</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+
+</dd>
 <dt id="findTimeZone"><a name="findTimeZone,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">findTimeZone</span><span class="Other">(</span><span class="Identifier">tzName</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">TimeZone</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Finds timezone by its name
+
+</dd>
+<dt id="findTimeZone"><a name="findTimeZone,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">findTimeZone</span><span class="Other">(</span><span class="Identifier">tzId</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">TimeZone</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Finds timezone by its id (slow).
 
 </dd>
 <dt id="valid"><a name="valid,TimeZone"></a><pre><span class="Keyword">proc</span> <span class="Identifier">valid</span><span class="Other">(</span><span class="Identifier">tz</span><span class="Other">:</span> <span class="Identifier">TimeZone</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
@@ -1721,6 +1739,11 @@ Returns true if timezone is valid
 <dt id="applyTimezone"><a name="applyTimezone,Calendar,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">applyTimezone</span><span class="Other">(</span><span class="Identifier">cal</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Calendar</span><span class="Other">;</span> <span class="Identifier">tzName</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 take a calendar and apply a timezone to it this does not change the timestamp of the calendar
+
+</dd>
+<dt id="clearTimezone"><a name="clearTimezone,Calendar"></a><pre><span class="Keyword">proc</span> <span class="Identifier">clearTimezone</span><span class="Other">(</span><span class="Identifier">cal</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Calendar</span><span class="Other">)</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+
 
 </dd>
 <dt id="tsToCalendar"><a name="tsToCalendar,Timestamp,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">tsToCalendar</span><span class="Other">(</span><span class="Identifier">ts</span><span class="Other">:</span> <span class="Identifier">Timestamp</span><span class="Other">;</span> <span class="Identifier">tzName</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Calendar</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
@@ -1755,6 +1778,11 @@ Format a Timestamp with timezone using the format string.
 Finds timezone dst changes by timezone.
 
 </dd>
+<dt id="findTimeZoneFromDstName"><a name="findTimeZoneFromDstName.i,string"></a><pre><span class="Keyword">iterator</span> <span class="Identifier">findTimeZoneFromDstName</span><span class="Other">(</span><span class="Identifier">dstName</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">TimeZone</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Finds timezones by its dst name (slow).
+
+</dd>
 
 </dl></div>
 
@@ -1765,7 +1793,7 @@ Finds timezone dst changes by timezone.
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2017-11-14 17:26:32 UTC</small>
+        <small>Made with Nim. Generated: 2017-11-14 18:47:50 UTC</small>
       </div>
     </div>
   </div>
